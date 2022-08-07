@@ -11,7 +11,7 @@ function  makeCustomer(customer) {
 }
 
 function deleteBilling(id) {
-    return knex('billing').where('customer-id', id).del();
+    return knex('billing').where('customerId', id).del();
 }
 
 //Booking
@@ -23,12 +23,6 @@ function deleteBooking(id) {
     return knex('booking').where('id', id).del();
 }
 
-function processBooking(id) {
-    return knex('booking').where('id', id).update({
-        processed: 'Processed'
-    });
-}
-
 //Rooms
 function deleteBookingFromRooms(room, booking) {
     return knex('rooms').where(room, booking).update({
@@ -37,7 +31,7 @@ function deleteBookingFromRooms(room, booking) {
 }
 
 function addBookingToRooms(room, booking, startDay, endDay) {
-    return knex('rooms').whereBetween('day', [startDay, endDay]).update({
+    return knex('rooms').whereBetween('bookDay', [startDay, endDay]).update({
         [room]: booking
     });
 }
@@ -60,11 +54,11 @@ function getCalendar() {
 }
 
 function getDay(day) {
-    return knex('rooms').where('day', day).select('*');
+    return knex('rooms').where('bookDay', day).select('*');
 }
 
 function getDayRange(startDay, endDay) {
-    return knex('rooms').whereBetween('day', [startDay, endDay]).select('*');
+    return knex('rooms').whereBetween('bookDay', [startDay, endDay]).select('*');
 }
 
 function getOccupied() {
@@ -72,12 +66,12 @@ function getOccupied() {
 }
 
 function getBookingAndCustomer(id) {
-    return knex('booking').where('id', id).join('billing', 'booking.customer-id', '=', 'billing.customer-id')
+    return knex('booking').where('id', id).join('billing', 'booking.customerId', '=', 'billing.customerId')
     .select('*');
 }
 
 function getLookUp(field, value) {
-    return knex('booking').where(field, value).join('billing', 'booking.customer-id', '=', 'billing.customer-id')
+    return knex('booking').where(field, value).join('billing', 'booking.customerId', '=', 'billing.customerId')
     .select('*');
 }
 
@@ -85,7 +79,7 @@ module.exports = {
     createDay, makeCustomer, makeBooking,
     deleteBooking, deleteBilling, getCustomer,
     addBookingToRooms, deleteBookingFromRooms,
-    getBooking, getCalendar, processBooking,
+    getBooking, getCalendar,
     getDay, getDayRange, getOccupied,
     getBookingAndCustomer, updateOccupied,
     getLookUp
