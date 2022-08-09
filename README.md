@@ -1,6 +1,6 @@
 # hotel-db
 
-This is the customer page of a 3 part project.  The project is a hotel with a customer website to book rooms, a company page to handle the 
+This is the database/api of a 3 part project.  The project is a hotel with a customer website to book rooms, a company page to handle the 
 physical hotel's needs, and an api/database as the backend.
 
 The three parts are hosted on Github and Heroku. The links can be found here:
@@ -14,5 +14,5 @@ The three parts are hosted on Github and Heroku. The links can be found here:
 [4]: http://jackson-hotel-company.herokuapp.com/ "Company Website"
 [5]: https://github.com/johnny-jack19/hotel-db "Database Code"
 
-This is the customer facing website that would tell a bit about the hotel and the area around.  It connects to a database and allows 
-for booking.
+The database is a mySQL database that is converted into a ClearDB for Heroku.  The api is using Express js to connect with the 
+database once the endpoints are called.
