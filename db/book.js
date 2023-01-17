@@ -95,7 +95,7 @@ async function getGuestOnDay(day) {
     myDay[0]["room5"],
     myDay[0]["room6"],
   ];
-  return knex("booking").whereIn("id", ids).select("name");
+  return knex("booking").whereIn("id", ids).select("id", "name");
 }
 
 module.exports = {
